@@ -1,4 +1,4 @@
-import { styles } from "src/styles";
+import { styles } from "../../styles";
 
 export default function ProfileWidget({ domElement }) {
   const account = domElement.getAttribute("account");

@@ -5,4 +5,4 @@ Widgets that anyone can add to their own web application to integrate with the Y
 ## Commands
 
 - Runs the app in the development mode - `npm start`
-- Builds the app for production to the `build` folder - `npm run build`
+- Build widget dist - `npm run build:widget`
