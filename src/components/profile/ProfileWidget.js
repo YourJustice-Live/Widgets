@@ -1,9 +1,14 @@
 import { styles } from "src/styles";
 
-export default function ProfileWidget() {
+export default function ProfileWidget({ domElement }) {
+  const account = domElement.getAttribute("account");
+
   return (
     <div style={styles.ProfileWidget}>
-      <span>Profile Widget</span>
+      <span><b>Profile Widget</b></span>
+      <br />
+      <br />
+      <span>Account: {account}</span>
     </div>
   );
 }

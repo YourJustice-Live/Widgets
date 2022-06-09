@@ -5,21 +5,25 @@ import ProfileWidget from 'src/components/profile/ProfileWidget';
 import './index.css';
 
 // Add profile widget to dom
-if (document.getElementById('yj_profile')) {
-  const widgetContainer = ReactDOM.createRoot(document.getElementById('yj_profile'));
-  widgetContainer.render(
-    <React.StrictMode>
-      <ProfileWidget />
-    </React.StrictMode>
-  )
+const profileWidgetDomElement = document.getElementById('yj_profile');
+if (profileWidgetDomElement) {
+  ReactDOM
+    .createRoot(profileWidgetDomElement)
+    .render(
+      <React.StrictMode>
+        <ProfileWidget domElement={profileWidgetDomElement} />
+      </React.StrictMode>
+    );
 }
 
 // Add jurisdiction widget to dom
-if (document.getElementById('yj_jurisdiction')) {
-  const widgetContainer = ReactDOM.createRoot(document.getElementById('yj_jurisdiction'));
-  widgetContainer.render(
-    <React.StrictMode>
-      <JurisdictionWidget />
-    </React.StrictMode>
-  )
+const jurisdcitionWidgetDomElement = document.getElementById('yj_jurisdiction');
+if (jurisdcitionWidgetDomElement) {
+  ReactDOM
+    .createRoot(jurisdcitionWidgetDomElement)
+    .render(
+      <React.StrictMode>
+        <JurisdictionWidget />
+      </React.StrictMode>
+    );
 }
