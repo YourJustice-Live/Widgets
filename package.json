@@ -16,7 +16,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:widget": "parcel build src/index.js --no-source-maps --dist-dir dist",
+    "build:widget": "eslint src && parcel build src/index.js --no-source-maps --dist-dir dist",
+    "lint": "eslint src",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -40,7 +41,12 @@
   },
   "devDependencies": {
     "buffer": "^6.0.3",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
     "parcel": "^2.6.0",
+    "prettier": "^2.6.2",
     "process": "^0.11.10"
   }
 }

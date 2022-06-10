@@ -11,9 +11,7 @@ export function formatProfileFirstLastName(profile, length = 36) {
   let profileFirstLastName = 'Anonymous';
   if (profile?.uriFirstName || profile?.uriLastName) {
     profileFirstLastName =
-      (profile.uriFirstName || '') +
-      ' ' +
-      (profile.uriLastName || '');
+      (profile.uriFirstName || '') + ' ' + (profile.uriLastName || '');
   }
   return truncate(profileFirstLastName, { length: length });
 }

@@ -7,23 +7,19 @@ import './index.css';
 // Add profile widget to dom
 const profileWidgetDomElement = document.getElementById('yj_profile');
 if (profileWidgetDomElement) {
-  ReactDOM
-    .createRoot(profileWidgetDomElement)
-    .render(
-      <React.StrictMode>
-        <ProfileWidget domElement={profileWidgetDomElement} />
-      </React.StrictMode>
-    );
+  ReactDOM.createRoot(profileWidgetDomElement).render(
+    <React.StrictMode>
+      <ProfileWidget domElement={profileWidgetDomElement} />
+    </React.StrictMode>,
+  );
 }
 
 // Add jurisdiction widget to dom
 const jurisdcitionWidgetDomElement = document.getElementById('yj_jurisdiction');
 if (jurisdcitionWidgetDomElement) {
-  ReactDOM
-    .createRoot(jurisdcitionWidgetDomElement)
-    .render(
-      <React.StrictMode>
-        <JurisdictionWidget />
-      </React.StrictMode>
-    );
+  ReactDOM.createRoot(jurisdcitionWidgetDomElement).render(
+    <React.StrictMode>
+      <JurisdictionWidget />
+    </React.StrictMode>,
+  );
 }

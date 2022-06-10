@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import useProfile from "../../hooks/useProfile";
-import { styles } from "../../styles";
-import { formatProfileFirstLastName } from "../../utils/formatters";
+import { useEffect, useState } from 'react';
+import useProfile from '../../hooks/useProfile';
+import { styles } from '../../styles';
+import { formatProfileFirstLastName } from '../../utils/formatters';
 
 /**
  * A component with a profile widget.
  */
 export default function ProfileWidget({ domElement }) {
-  const account = domElement.getAttribute("account");
+  const account = domElement.getAttribute('account');
   const { getProfile } = useProfile();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
@@ -24,7 +24,6 @@ export default function ProfileWidget({ domElement }) {
     } else {
       setIsLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -33,7 +32,12 @@ export default function ProfileWidget({ domElement }) {
       {!isLoading && !profile && <p>Profile not found</p>}
       {!isLoading && profile && (
         <>
-          <img src={profile.uriImage} alt="Profile" width="64px" height="64px" />
+          <img
+            src={profile.uriImage}
+            alt="Profile"
+            width="64px"
+            height="64px"
+          />
           <br />
           <span>{formatProfileFirstLastName(profile)}</span>
           <br />
@@ -41,7 +45,10 @@ export default function ProfileWidget({ domElement }) {
           <br />
           <span>-{profile.totalNegativeRating}</span>
           <br />
-          <a href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`} target="blank">
+          <a
+            href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
+            target="blank"
+          >
             <button>Change Reputation</button>
           </a>
           <br />
@@ -51,4 +58,3 @@ export default function ProfileWidget({ domElement }) {
     </div>
   );
 }
-

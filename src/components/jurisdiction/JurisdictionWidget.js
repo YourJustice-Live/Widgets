@@ -1,4 +1,4 @@
-import { styles } from "../../styles";
+import { styles } from '../../styles';
 
 export default function JurisdictionWidget() {
   return (
@@ -7,4 +7,3 @@ export default function JurisdictionWidget() {
     </div>
   );
 }
-

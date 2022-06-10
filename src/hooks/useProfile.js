@@ -1,5 +1,5 @@
-import Profile from "../classes/Profile";
-import useSubgraph from "./useSubgraph";
+import Profile from '../classes/Profile';
+import useSubgraph from './useSubgraph';
 
 /**
  * Hook for work with profiles.
@@ -9,7 +9,7 @@ export default function useProfile() {
 
   /**
    * Get profile.
-   * 
+   *
    * @param {string} owner Address of owner account.
    * @returns {Promise.<Profile>} A profile or null if profile is not found.
    */
@@ -21,11 +21,11 @@ export default function useProfile() {
     return avatarNftEntities && avatarNftEntities.length > 0
       ? createProfileObject(avatarNftEntities[0])
       : null;
-  }
+  };
 
   return {
     getProfile,
-  }
+  };
 }
 
 /**
@@ -45,5 +45,5 @@ function createProfileObject(avatarNftEntity) {
     avatarNftEntity.uriLastName,
     avatarNftEntity.totalNegativeRating,
     avatarNftEntity.totalPositiveRating,
-  )
+  );
 }
