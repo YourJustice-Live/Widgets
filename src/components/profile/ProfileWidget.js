@@ -9,6 +9,7 @@ const Wrapper = styled.div`
   padding: 16px;
   border-radius: 16px;
   background-color: #ffffff;
+  font-family: 'Manrope', sans-serif;
 `;
 
 const Message = styled.div`
@@ -25,11 +26,12 @@ const ProfileWrapper = styled.div`
 const Image = styled.img`
   width: 36px;
   height: 36px;
-  border-radius: 10px;
+  border-radius: 12px;
 `;
 
 const Brand = styled.div`
   font-size: 0.6em;
+  font-weight: 600;
   color: ${palette.text.secondary};
 `;
 
@@ -44,19 +46,19 @@ const NameLink = styled.a`
   margin-left: 8px;
   text-decoration: none;
   color: ${palette.primary.main};
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 const PositiveRating = styled.div`
   margin-left: 12px;
   color: ${palette.success.main};
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 const NegativeRating = styled.div`
   margin-left: 12px;
   color: ${palette.danger.main};
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 const Button = styled.a`
@@ -68,7 +70,7 @@ const Button = styled.a`
   align-items: center;
   color: ${palette.primary.main};
   text-decoration: none;
-  font-size: 0.9em;
+  font-weight: 500;
   background-color: ${palette.primary.button.background};
   &:hover {
     background-color: ${palette.primary.button.backgroundHover};

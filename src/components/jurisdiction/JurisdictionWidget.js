@@ -1,8 +1,13 @@
-import { styles } from '../../styles';
-
 export default function JurisdictionWidget() {
   return (
-    <div style={styles.JurisdictionWidget}>
+    <div
+      style={{
+        backgroundColor: '#FFFFFF',
+        padding: '24px',
+        borderRadius: '16px',
+        textAlign: 'center',
+      }}
+    >
       <span>Jurisdiction Widget</span>
     </div>
   );
