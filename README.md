@@ -10,7 +10,7 @@ This is a widget that displays the profile's overall reputation, a link to a spe
 
 ### Demo
 
-https://codesandbox.io/s/yourjurstice-profile-widget-demo-ppe8to
+[https://codesandbox.io/s/yourjurstice-profile-widget-demo-ppe8to](https://codesandbox.io/s/yourjurstice-profile-widget-demo-ppe8to)
 
 ### Usage
 
