@@ -16,10 +16,10 @@ https://codesandbox.io/s/yourjurstice-profile-widget-demo-ppe8to
 
 ```html
 <link
-  href="https://yourjustice-live.github.io/Widgets/dist/index.css"
+  href="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets/dist/index.css"
   rel="stylesheet"
 />
-<script src="https://yourjustice-live.github.io/Widgets/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets/dist/index.js"></script>
 
 <div
   id="yj_profile"
