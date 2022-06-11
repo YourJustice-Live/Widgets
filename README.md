@@ -14,11 +14,18 @@ https://codesandbox.io/s/yourjurstice-profile-widget-demo-ppe8to
 
 ### Usage
 
-```
-<link href="https://yourjustice-live.github.io/Widgets/dist/index.css" rel="stylesheet" />
+```html
+<link
+  href="https://yourjustice-live.github.io/Widgets/dist/index.css"
+  rel="stylesheet"
+/>
 <script src="https://yourjustice-live.github.io/Widgets/dist/index.js"></script>
 
-<div id="yj_profile" account="0x4306D7a79265D2cb85Db0c5a55ea5F4f6F73C4B1" jurisdiction="0x767160931f9d7cce40e9a91f22b223a40a3f59c3"></div>
+<div
+  id="yj_profile"
+  account="0x4306D7a79265D2cb85Db0c5a55ea5F4f6F73C4B1"
+  jurisdiction="0x767160931f9d7cce40e9a91f22b223a40a3f59c3"
+></div>
 ```
 
 Don't forget to replace the **account** and **jurisdiction** with your own values.
