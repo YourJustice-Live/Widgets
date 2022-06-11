@@ -30,7 +30,7 @@ https://codesandbox.io/s/yourjurstice-profile-widget-demo-ppe8to
 
 Don't forget to replace the **account** and **jurisdiction** with your own values.
 
-## Developments
+## Development
 
 ### Commands
 
