@@ -1,5 +1,5 @@
 /**
- * Class for the profile.
+ * Class for a profile.
  */
 export default class Profile {
   constructor(

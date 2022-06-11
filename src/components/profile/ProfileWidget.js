@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import useJurisdiction from '../../hooks/useJurisdiction';
 import useProfile from '../../hooks/useProfile';
 import { IconEvent } from '../../icons/IconEvent';
 import { palette } from '../../theme/palette';
@@ -20,6 +21,7 @@ const ProfileWrapper = styled.div`
   margin-top: 8px;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -36,14 +38,17 @@ const Brand = styled.div`
 `;
 
 const DetailsWrapper = styled.div`
+  margin-left: 12px;
   flex: 1;
+`;
+
+const NameRatingWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
 `;
 
 const NameLink = styled.a`
-  margin-left: 8px;
   text-decoration: none;
   color: ${palette.primary.main};
   font-weight: 700;
@@ -59,6 +64,13 @@ const NegativeRating = styled.div`
   margin-left: 12px;
   color: ${palette.danger.main};
   font-weight: 700;
+`;
+
+const JurisdictionLink = styled.a`
+  text-decoration: none;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: ${palette.text.secondary};
 `;
 
 const Button = styled.a`
@@ -88,20 +100,35 @@ const ButtonIconWrapper = styled.div`
  * A component with a profile widget.
  */
 export default function ProfileWidget({ domElement }) {
-  const account = domElement.getAttribute('account');
+  const accountAttribute = domElement.getAttribute('account');
+  const jurisdictionAttribute = domElement.getAttribute('jurisdiction');
   const { getProfile } = useProfile();
+  const { getJurisdiction } = useJurisdiction();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+  const [jurisdiction, setJurisdiction] = useState(null);
+
+  async function loadData() {
+    try {
+      const profile = await getProfile(accountAttribute);
+      setProfile(profile);
+      if (profile && jurisdictionAttribute) {
+        const jurisdiction = await getJurisdiction(jurisdictionAttribute);
+        setJurisdiction(jurisdiction);
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   /**
-   * Load profile if account is specified.
+   * Load profile and jurisdiction if attributes is specified when component is mounted.
    */
   useEffect(() => {
-    if (account) {
-      getProfile(account)
-        .then((profile) => setProfile(profile))
-        .catch((error) => console.error(error))
-        .finally(() => setIsLoading(false));
+    if (accountAttribute) {
+      loadData();
     } else {
       setIsLoading(false);
     }
@@ -109,7 +136,7 @@ export default function ProfileWidget({ domElement }) {
 
   return (
     <Wrapper>
-      {isLoading && <Message>Loading...</Message>}
+      {isLoading && <Message>Loading profile...</Message>}
       {!isLoading && !profile && <Message>Profile not found</Message>}
       {!isLoading && profile && (
         <div>
@@ -117,14 +144,24 @@ export default function ProfileWidget({ domElement }) {
           <ProfileWrapper>
             <Image src={profile.uriImage} />
             <DetailsWrapper>
-              <NameLink
-                href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
-                target="blank"
-              >
-                {formatProfileFirstLastName(profile)}
-              </NameLink>
-              <PositiveRating>+{profile.totalPositiveRating}</PositiveRating>
-              <NegativeRating>-{profile.totalNegativeRating}</NegativeRating>
+              <NameRatingWrapper>
+                <NameLink
+                  href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
+                  target="blank"
+                >
+                  {formatProfileFirstLastName(profile)}
+                </NameLink>
+                <PositiveRating>+{profile.totalPositiveRating}</PositiveRating>
+                <NegativeRating>-{profile.totalNegativeRating}</NegativeRating>
+              </NameRatingWrapper>
+              {jurisdiction && (
+                <JurisdictionLink
+                  href={`${process.env.REACT_APP_YJ_DAPP}/jurisdiction/${jurisdiction.id}`}
+                  target="blank"
+                >
+                  {jurisdiction.name}
+                </JurisdictionLink>
+              )}
             </DetailsWrapper>
             <Button
               href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}

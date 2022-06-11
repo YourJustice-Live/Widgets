@@ -5,11 +5,11 @@ import axios from 'axios';
  */
 export default function useSubgraph() {
   /**
-   * Find the avatar nft entities.
+   * Find avatar nft entities.
    *
    * @param {Array.<string>} owners List with addresses of avatar nft owners.
-   * @param {number} first The number of entities to get.
-   * @param {*} skip The number of entities to skip.
+   * @param {number} first Number of entities to get.
+   * @param {*} skip Number of entities to skip.
    * @returns {Promise.<Array.<{object}>>} Entitites.
    */
   let findAvatarNftEntities = async function (owners, first = 10, skip = 0) {
@@ -22,8 +22,25 @@ export default function useSubgraph() {
     return response.avatarNftEntities;
   };
 
+  /**
+   * Find jurisdiction entities
+   *
+   * @param {*} ids List with jurisdiction ids (addresses).
+   * @param {*} first Number of entities to get.
+   * @param {*} skip Number of entities to skip.
+   * @returns {Promise.<Array.<{object}>>} Entitites.
+   */
+  let findJurisdictionEntities = async function (ids, first = 10, skip = 0) {
+    const fixedIds = ids ? ids.map((id) => id.toLowerCase()) : null;
+    const response = await makeSubgraphQuery(
+      getFindJurisdictionEntitiesQuery(fixedIds, first, skip),
+    );
+    return response.jurisdictionEntities;
+  };
+
   return {
     findAvatarNftEntities,
+    findJurisdictionEntities,
   };
 }
 
@@ -63,4 +80,17 @@ function getFindAvatarNftEntitiesQuery(owners, first, skip) {
         totalPositiveRating
       }
     }`;
+}
+
+function getFindJurisdictionEntitiesQuery(ids, first, skip) {
+  let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
+  let filterParams = `where: {${idsFilter}}`;
+  let sortParams = `orderBy: memberAccountsCount, orderDirection: desc`;
+  let paginationParams = `first: ${first}, skip: ${skip}`;
+  return `{
+    jurisdictionEntities(${filterParams}, ${sortParams}, ${paginationParams}) {
+      id
+      name
+    }
+  }`;
 }

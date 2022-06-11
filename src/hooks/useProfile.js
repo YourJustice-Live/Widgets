@@ -18,7 +18,7 @@ export default function useProfile() {
       return null;
     }
     const avatarNftEntities = await findAvatarNftEntities([owner], 1);
-    return avatarNftEntities && avatarNftEntities.length > 0
+    return avatarNftEntities?.length > 0
       ? createProfileObject(avatarNftEntities[0])
       : null;
   };
