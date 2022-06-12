@@ -11,29 +11,23 @@ import { formatProfileFirstLastName } from '../../utils/formatters';
 const Wrapper = styled.div`
   padding: 16px;
   border-radius: 16px;
+  display: flex;
+  flex-direction: ${(props) =>
+    props.variant === 'vertical' ? 'column' : 'row'};
+  align-items: ${(props) =>
+    props.variant === 'vertical' ? 'none' : 'flex-end'};
+  justify-content: space-between;
   background-color: #ffffff;
   font-family: 'Manrope', sans-serif;
 `;
 
 const Message = styled.div`
+  flex: 1;
   text-align: center;
+  font-weight: 500;
 `;
 
-const ProfileWrapper = styled.div`
-  margin-top: 8px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Image = styled.img`
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-`;
-
-const BrandWrapper = styled.div`
+const Brand = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -47,6 +41,19 @@ const BrandLogoWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   margin-left: 4px;
+`;
+
+const ProfileWrapper = styled.div`
+  margin-top: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Image = styled.img`
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
 `;
 
 const DetailsWrapper = styled.div`
@@ -85,17 +92,22 @@ const JurisdictionLink = styled.a`
   color: ${palette.text.secondary};
 `;
 
+const ButtonWrapper = styled.div`
+  flex: ${(props) => (props.variant === 'vertical' ? 1 : 'none')};
+  margin-top: ${(props) => (props.variant === 'vertical' ? '10px' : '0px')};
+`;
+
 const Button = styled.a`
   padding: 0px 16px;
   height: 36px;
   border-radius: 12px;
-  align-self: flex-end;
   display: flex;
   align-items: center;
+  justify-content: center;
   color: ${palette.primary.main};
+  background-color: ${palette.primary.button.background};
   text-decoration: none;
   font-weight: 500;
-  background-color: ${palette.primary.button.background};
   &:hover {
     background-color: ${palette.primary.button.backgroundHover};
   }
@@ -121,6 +133,7 @@ const ButtonRightIconWrapper = styled.div`
 export default function ProfileWidget({ domElement }) {
   const accountAttribute = domElement.getAttribute('account');
   const jurisdictionAttribute = domElement.getAttribute('jurisdiction');
+  const variant = domElement.getAttribute('variant');
   const { getProfile } = useProfile();
   const { getJurisdiction } = useJurisdiction();
   const [isLoading, setIsLoading] = useState(true);
@@ -154,43 +167,51 @@ export default function ProfileWidget({ domElement }) {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper variant={variant}>
       {isLoading && <Message>Loading profile...</Message>}
       {!isLoading && !profile && <Message>Profile not found</Message>}
       {!isLoading && profile && (
-        <div>
-          <BrandWrapper>
-            POWERED BY
-            <BrandLogoWrapper>
-              <IconLogo
-                width="100px"
-                height="17px"
-                color={palette.text.secondary}
-              />
-            </BrandLogoWrapper>
-          </BrandWrapper>
-          <ProfileWrapper>
-            <Image src={profile.uriImage} />
-            <DetailsWrapper>
-              <NameRatingWrapper>
-                <NameLink
-                  href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
-                  target="blank"
-                >
-                  {formatProfileFirstLastName(profile)}
-                </NameLink>
-                <PositiveRating>+{profile.totalPositiveRating}</PositiveRating>
-                <NegativeRating>-{profile.totalNegativeRating}</NegativeRating>
-              </NameRatingWrapper>
-              {jurisdiction && (
-                <JurisdictionLink
-                  href={`${process.env.REACT_APP_YJ_DAPP}/jurisdiction/${jurisdiction.id}`}
-                  target="blank"
-                >
-                  {jurisdiction.name}
-                </JurisdictionLink>
-              )}
-            </DetailsWrapper>
+        <>
+          <div>
+            <Brand>
+              POWERED BY
+              <BrandLogoWrapper>
+                <IconLogo
+                  width="100px"
+                  height="17px"
+                  color={palette.text.secondary}
+                />
+              </BrandLogoWrapper>
+            </Brand>
+            <ProfileWrapper>
+              <Image src={profile.uriImage} />
+              <DetailsWrapper>
+                <NameRatingWrapper>
+                  <NameLink
+                    href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
+                    target="blank"
+                  >
+                    {formatProfileFirstLastName(profile)}
+                  </NameLink>
+                  <PositiveRating>
+                    +{profile.totalPositiveRating}
+                  </PositiveRating>
+                  <NegativeRating>
+                    -{profile.totalNegativeRating}
+                  </NegativeRating>
+                </NameRatingWrapper>
+                {jurisdiction && (
+                  <JurisdictionLink
+                    href={`${process.env.REACT_APP_YJ_DAPP}/jurisdiction/${jurisdiction.id}`}
+                    target="blank"
+                  >
+                    {jurisdiction.name}
+                  </JurisdictionLink>
+                )}
+              </DetailsWrapper>
+            </ProfileWrapper>
+          </div>
+          <ButtonWrapper variant={variant}>
             <Button
               href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
               target="blank"
@@ -203,8 +224,8 @@ export default function ProfileWidget({ domElement }) {
                 <IconArrowDown color={palette.danger.main} />
               </ButtonRightIconWrapper>
             </Button>
-          </ProfileWrapper>
-        </div>
+          </ButtonWrapper>
+        </>
       )}
     </Wrapper>
   );

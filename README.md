@@ -22,13 +22,21 @@ This is a widget that displays the profile's overall reputation, a link to a spe
 <script src="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets/dist/index.js"></script>
 
 <div
-  id="yj_profile"
+  class="yj_profile"
   account="0x4306D7a79265D2cb85Db0c5a55ea5F4f6F73C4B1"
   jurisdiction="0x767160931f9d7cce40e9a91f22b223a40a3f59c3"
 ></div>
 ```
 
 Don't forget to replace the **account** and **jurisdiction** with your own values.
+
+### Props
+
+| Name         | Default      | Description                              |
+| ------------ | ------------ | ---------------------------------------- |
+| account      | -            | The address of YourJustice account.      |
+| jurisdiction | -            | The address of YourJustice jurisdiction. |
+| variant      | "horizontal" | Can be "horizontal" or "vertical".       |
 
 ## Development
 
