@@ -2,19 +2,45 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useJurisdiction from '../../hooks/useJurisdiction';
 import useProfile from '../../hooks/useProfile';
-import { IconEvent } from '../../icons/IconEvent';
+import { IconArrowDown } from '../../icons/IconArrowDown';
+import { IconArrowUp } from '../../icons/IconArrowUp';
+import { IconLogo } from '../../icons/IconLogo';
 import { palette } from '../../theme/palette';
 import { formatProfileFirstLastName } from '../../utils/formatters';
 
 const Wrapper = styled.div`
   padding: 16px;
   border-radius: 16px;
+  display: flex;
+  flex-direction: ${(props) =>
+    props.variant === 'vertical' ? 'column' : 'row'};
+  align-items: ${(props) =>
+    props.variant === 'vertical' ? 'none' : 'flex-end'};
+  justify-content: space-between;
   background-color: #ffffff;
   font-family: 'Manrope', sans-serif;
 `;
 
 const Message = styled.div`
+  flex: 1;
   text-align: center;
+  font-weight: 500;
+`;
+
+const Brand = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 0.6em;
+  font-weight: 600;
+  color: ${palette.text.secondary};
+`;
+
+const BrandLogoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 4px;
 `;
 
 const ProfileWrapper = styled.div`
@@ -22,19 +48,12 @@ const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const Image = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 12px;
-`;
-
-const Brand = styled.div`
-  font-size: 0.6em;
-  font-weight: 600;
-  color: ${palette.text.secondary};
 `;
 
 const DetailsWrapper = styled.div`
@@ -73,27 +92,39 @@ const JurisdictionLink = styled.a`
   color: ${palette.text.secondary};
 `;
 
+const ButtonWrapper = styled.div`
+  flex: ${(props) => (props.variant === 'vertical' ? 1 : 'none')};
+  margin-top: ${(props) => (props.variant === 'vertical' ? '10px' : '0px')};
+`;
+
 const Button = styled.a`
   padding: 0px 16px;
   height: 36px;
   border-radius: 12px;
-  align-self: flex-end;
   display: flex;
   align-items: center;
+  justify-content: center;
   color: ${palette.primary.main};
+  background-color: ${palette.primary.button.background};
   text-decoration: none;
   font-weight: 500;
-  background-color: ${palette.primary.button.background};
   &:hover {
     background-color: ${palette.primary.button.backgroundHover};
   }
 `;
 
-const ButtonIconWrapper = styled.div`
+const ButtonLeftIconWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-right: 8px;
+`;
+
+const ButtonRightIconWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 8px;
 `;
 
 /**
@@ -102,6 +133,7 @@ const ButtonIconWrapper = styled.div`
 export default function ProfileWidget({ domElement }) {
   const accountAttribute = domElement.getAttribute('account');
   const jurisdictionAttribute = domElement.getAttribute('jurisdiction');
+  const variant = domElement.getAttribute('variant');
   const { getProfile } = useProfile();
   const { getJurisdiction } = useJurisdiction();
   const [isLoading, setIsLoading] = useState(true);
@@ -135,45 +167,65 @@ export default function ProfileWidget({ domElement }) {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper variant={variant}>
       {isLoading && <Message>Loading profile...</Message>}
       {!isLoading && !profile && <Message>Profile not found</Message>}
       {!isLoading && profile && (
-        <div>
-          <Brand>POWER BY YOURJUSTICE</Brand>
-          <ProfileWrapper>
-            <Image src={profile.uriImage} />
-            <DetailsWrapper>
-              <NameRatingWrapper>
-                <NameLink
-                  href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
-                  target="blank"
-                >
-                  {formatProfileFirstLastName(profile)}
-                </NameLink>
-                <PositiveRating>+{profile.totalPositiveRating}</PositiveRating>
-                <NegativeRating>-{profile.totalNegativeRating}</NegativeRating>
-              </NameRatingWrapper>
-              {jurisdiction && (
-                <JurisdictionLink
-                  href={`${process.env.REACT_APP_YJ_DAPP}/jurisdiction/${jurisdiction.id}`}
-                  target="blank"
-                >
-                  {jurisdiction.name}
-                </JurisdictionLink>
-              )}
-            </DetailsWrapper>
+        <>
+          <div>
+            <Brand>
+              POWERED BY
+              <BrandLogoWrapper>
+                <IconLogo
+                  width="100px"
+                  height="17px"
+                  color={palette.text.secondary}
+                />
+              </BrandLogoWrapper>
+            </Brand>
+            <ProfileWrapper>
+              <Image src={profile.uriImage} />
+              <DetailsWrapper>
+                <NameRatingWrapper>
+                  <NameLink
+                    href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
+                    target="blank"
+                  >
+                    {formatProfileFirstLastName(profile)}
+                  </NameLink>
+                  <PositiveRating>
+                    +{profile.totalPositiveRating}
+                  </PositiveRating>
+                  <NegativeRating>
+                    -{profile.totalNegativeRating}
+                  </NegativeRating>
+                </NameRatingWrapper>
+                {jurisdiction && (
+                  <JurisdictionLink
+                    href={`${process.env.REACT_APP_YJ_DAPP}/jurisdiction/${jurisdiction.id}`}
+                    target="blank"
+                  >
+                    {jurisdiction.name}
+                  </JurisdictionLink>
+                )}
+              </DetailsWrapper>
+            </ProfileWrapper>
+          </div>
+          <ButtonWrapper variant={variant}>
             <Button
               href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
               target="blank"
             >
-              <ButtonIconWrapper>
-                <IconEvent />
-              </ButtonIconWrapper>
-              Change Reputation
+              <ButtonLeftIconWrapper>
+                <IconArrowUp color={palette.success.main} />
+              </ButtonLeftIconWrapper>
+              Impact Reputation
+              <ButtonRightIconWrapper>
+                <IconArrowDown color={palette.danger.main} />
+              </ButtonRightIconWrapper>
             </Button>
-          </ProfileWrapper>
-        </div>
+          </ButtonWrapper>
+        </>
       )}
     </Wrapper>
   );
