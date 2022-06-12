@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useJurisdiction from '../../hooks/useJurisdiction';
 import useProfile from '../../hooks/useProfile';
-import { IconEvent } from '../../icons/IconEvent';
+import { IconArrowDown } from '../../icons/IconArrowDown';
+import { IconArrowUp } from '../../icons/IconArrowUp';
+import { IconLogo } from '../../icons/IconLogo';
 import { palette } from '../../theme/palette';
 import { formatProfileFirstLastName } from '../../utils/formatters';
 
@@ -31,10 +33,20 @@ const Image = styled.img`
   border-radius: 12px;
 `;
 
-const Brand = styled.div`
+const BrandWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-size: 0.6em;
   font-weight: 600;
   color: ${palette.text.secondary};
+`;
+
+const BrandLogoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 4px;
 `;
 
 const DetailsWrapper = styled.div`
@@ -89,11 +101,18 @@ const Button = styled.a`
   }
 `;
 
-const ButtonIconWrapper = styled.div`
+const ButtonLeftIconWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-right: 8px;
+`;
+
+const ButtonRightIconWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 8px;
 `;
 
 /**
@@ -140,7 +159,16 @@ export default function ProfileWidget({ domElement }) {
       {!isLoading && !profile && <Message>Profile not found</Message>}
       {!isLoading && profile && (
         <div>
-          <Brand>POWER BY YOURJUSTICE</Brand>
+          <BrandWrapper>
+            POWERED BY
+            <BrandLogoWrapper>
+              <IconLogo
+                width="100px"
+                height="17px"
+                color={palette.text.secondary}
+              />
+            </BrandLogoWrapper>
+          </BrandWrapper>
           <ProfileWrapper>
             <Image src={profile.uriImage} />
             <DetailsWrapper>
@@ -167,10 +195,13 @@ export default function ProfileWidget({ domElement }) {
               href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
               target="blank"
             >
-              <ButtonIconWrapper>
-                <IconEvent />
-              </ButtonIconWrapper>
-              Change Reputation
+              <ButtonLeftIconWrapper>
+                <IconArrowUp color={palette.success.main} />
+              </ButtonLeftIconWrapper>
+              Impact Reputation
+              <ButtonRightIconWrapper>
+                <IconArrowDown color={palette.danger.main} />
+              </ButtonRightIconWrapper>
             </Button>
           </ProfileWrapper>
         </div>
