@@ -1,5 +1,3 @@
-import { truncate } from 'lodash';
-
 /**
  * Format profile first and last names to string with truncation.
  *
@@ -13,5 +11,5 @@ export function formatProfileFirstLastName(profile, length = 36) {
     profileFirstLastName =
       (profile.uriFirstName || '') + ' ' + (profile.uriLastName || '');
   }
-  return truncate(profileFirstLastName, { length: length });
+  return profileFirstLastName.substring(0, length);
 }
