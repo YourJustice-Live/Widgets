@@ -16,10 +16,10 @@ This is a widget that displays the profile's overall reputation, a link to a spe
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets/dist/index.css"
+  href="https://yourjustice-live.github.io/Widgets/dist/index.css"
   rel="stylesheet"
 />
-<script src="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets/dist/index.js"></script>
+<script src="https://yourjustice-live.github.io/Widgets/dist/index.js"></script>
 
 <div
   class="yj_profile"
