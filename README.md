@@ -1,6 +1,6 @@
 # Your Justice Widgets
 
-Widgets that anyone can add to their own web application to integrate with the [YourJustice](https://yj.life/) platform.
+[Widgets](https://github.com/YourJustice-Live/Widgets) that anyone can add to their own web application to integrate with the [YourJustice](https://yj.life/) platform.
 
 ## Profile Widget
 
@@ -32,11 +32,18 @@ Don't forget to replace the **account** and **jurisdiction** with your own value
 
 ### Props
 
-| Name         | Default      | Description                              |
-| ------------ | ------------ | ---------------------------------------- |
-| account      | -            | The address of YourJustice account.      |
-| jurisdiction | -            | The address of YourJustice jurisdiction. |
-| variant      | "horizontal" | Can be "horizontal" or "vertical".       |
+| Name                  | Default      | Description                                                                                                |
+| --------------------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| account               | -            | Address of YourJustice account.                                                                            |
+| jurisdiction          | -            | Address of YourJustice jurisdiction.                                                                       |
+| variant               | "horizontal" | If "horizontal" then the button will be on the right. If "vertical" then the button will be at the bottom. |
+| backgroundColor       | "FFF"        | Color of widget background.                                                                                |
+| primaryTextColor      | "5E42CC"     | Color of profile link.                                                                                     |
+| secondaryTextColor    | "8198AF99"   | Color of brand label and jurisdiction link.                                                                |
+| buttonBackgroundColor | "#AD9BF514"  | Color of button background.                                                                                |
+| buttonTextColor       | "5E42CC"     | Color of button text.                                                                                      |
+| positiveColor         | "05B5A1"     | Color of positive rating.                                                                                  |
+| negativeColor         | "E8475F"     | Color of negative rating.                                                                                  |
 
 ## Development
 
