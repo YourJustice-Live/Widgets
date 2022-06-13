@@ -1,6 +1,6 @@
 # Your Justice Widgets
 
-Widgets that anyone can add to their own web application to integrate with the [YourJustice](https://yj.life/) platform.
+[Widgets](https://github.com/YourJustice-Live/Widgets) that anyone can add to their own web application to integrate with the [YourJustice](https://yj.life/) platform.
 
 ## Profile Widget
 
