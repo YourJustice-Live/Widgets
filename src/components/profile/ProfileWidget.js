@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   align-items: ${(props) =>
     props.variant === 'vertical' ? 'none' : 'flex-end'};
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: ${(props) => props.backgroundColor || palette.background};
   font-family: 'Manrope', sans-serif;
 `;
 
@@ -33,7 +33,7 @@ const Brand = styled.div`
   align-items: center;
   font-size: 0.6em;
   font-weight: 600;
-  color: ${palette.text.secondary};
+  color: ${(props) => props.secondaryTextColor || palette.text.secondary};
 `;
 
 const BrandLogoWrapper = styled.div`
@@ -69,19 +69,19 @@ const NameRatingWrapper = styled.div`
 
 const NameLink = styled.a`
   text-decoration: none;
-  color: ${palette.primary.main};
+  color: ${(props) => props.primaryTextColor || palette.primary.main};
   font-weight: 700;
 `;
 
 const PositiveRating = styled.div`
   margin-left: 12px;
-  color: ${palette.success.main};
+  color: ${(props) => props.positiveColor || palette.success.main};
   font-weight: 700;
 `;
 
 const NegativeRating = styled.div`
   margin-left: 12px;
-  color: ${palette.danger.main};
+  color: ${(props) => props.negativeColor || palette.danger.main};
   font-weight: 700;
 `;
 
@@ -89,7 +89,7 @@ const JurisdictionLink = styled.a`
   text-decoration: none;
   font-size: 0.8em;
   font-weight: 600;
-  color: ${palette.text.secondary};
+  color: ${(props) => props.secondaryTextColor || palette.text.secondary};
 `;
 
 const ButtonWrapper = styled.div`
@@ -104,12 +104,13 @@ const Button = styled.a`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${palette.primary.main};
-  background-color: ${palette.primary.button.background};
+  color: ${(props) => props.buttonTextColor || palette.primary.main};
+  background-color: ${(props) =>
+    props.buttonBackgroundColor || palette.primary.light};
   text-decoration: none;
   font-weight: 500;
   &:hover {
-    background-color: ${palette.primary.button.backgroundHover};
+    filter: brightness(85%);
   }
 `;
 
@@ -131,11 +132,23 @@ const ButtonRightIconWrapper = styled.div`
  * A component with a profile widget.
  */
 export default function ProfileWidget({ domElement }) {
+  // Attributes
   const accountAttribute = domElement.getAttribute('account');
   const jurisdictionAttribute = domElement.getAttribute('jurisdiction');
   const variant = domElement.getAttribute('variant');
+  const backgroundColor = domElement.getAttribute('backgroundColor');
+  const primaryTextColor = domElement.getAttribute('primaryTextColor');
+  const secondaryTextColor = domElement.getAttribute('secondaryTextColor');
+  const buttonBackgroundColor = domElement.getAttribute(
+    'buttonBackgroundColor',
+  );
+  const buttonTextColor = domElement.getAttribute('buttonTextColor');
+  const positiveColor = domElement.getAttribute('positiveColor');
+  const negativeColor = domElement.getAttribute('negativeColor');
+  // Hooks
   const { getProfile } = useProfile();
   const { getJurisdiction } = useJurisdiction();
+  // States
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
   const [jurisdiction, setJurisdiction] = useState(null);
@@ -167,19 +180,19 @@ export default function ProfileWidget({ domElement }) {
   }, []);
 
   return (
-    <Wrapper variant={variant}>
+    <Wrapper variant={variant} backgroundColor={backgroundColor}>
       {isLoading && <Message>Loading profile...</Message>}
       {!isLoading && !profile && <Message>Profile not found</Message>}
       {!isLoading && profile && (
         <>
           <div>
-            <Brand>
+            <Brand secondaryTextColor={secondaryTextColor}>
               POWERED BY
               <BrandLogoWrapper>
                 <IconLogo
                   width="100px"
                   height="17px"
-                  color={palette.text.secondary}
+                  color={secondaryTextColor || palette.text.secondary}
                 />
               </BrandLogoWrapper>
             </Brand>
@@ -190,13 +203,14 @@ export default function ProfileWidget({ domElement }) {
                   <NameLink
                     href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
                     target="blank"
+                    primaryTextColor={primaryTextColor}
                   >
                     {formatProfileFirstLastName(profile)}
                   </NameLink>
-                  <PositiveRating>
+                  <PositiveRating positiveColor={positiveColor}>
                     +{profile.totalPositiveRating}
                   </PositiveRating>
-                  <NegativeRating>
+                  <NegativeRating negativeColor={negativeColor}>
                     -{profile.totalNegativeRating}
                   </NegativeRating>
                 </NameRatingWrapper>
@@ -204,6 +218,7 @@ export default function ProfileWidget({ domElement }) {
                   <JurisdictionLink
                     href={`${process.env.REACT_APP_YJ_DAPP}/jurisdiction/${jurisdiction.id}`}
                     target="blank"
+                    secondaryTextColor={secondaryTextColor}
                   >
                     {jurisdiction.name}
                   </JurisdictionLink>
@@ -215,13 +230,15 @@ export default function ProfileWidget({ domElement }) {
             <Button
               href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}`}
               target="blank"
+              buttonBackgroundColor={buttonBackgroundColor}
+              buttonTextColor={buttonTextColor}
             >
               <ButtonLeftIconWrapper>
-                <IconArrowUp color={palette.success.main} />
+                <IconArrowUp color={positiveColor || palette.success.main} />
               </ButtonLeftIconWrapper>
               Impact Reputation
               <ButtonRightIconWrapper>
-                <IconArrowDown color={palette.danger.main} />
+                <IconArrowDown color={negativeColor || palette.danger.main} />
               </ButtonRightIconWrapper>
             </Button>
           </ButtonWrapper>
