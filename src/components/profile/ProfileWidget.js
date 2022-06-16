@@ -201,7 +201,7 @@ export default function ProfileWidget({ domElement }) {
               <DetailsWrapper>
                 <NameRatingWrapper>
                   <NameLink
-                    href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}?${process.env.REACT_APP_REF_PARAMETER}`}
+                    href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.id}?${process.env.REACT_APP_REF_PARAMETER}`}
                     target="blank"
                     primaryTextColor={primaryTextColor}
                   >
@@ -228,7 +228,7 @@ export default function ProfileWidget({ domElement }) {
           </div>
           <ButtonWrapper variant={variant}>
             <Button
-              href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.owner}?${process.env.REACT_APP_REF_PARAMETER}`}
+              href={`${process.env.REACT_APP_YJ_DAPP}/profile/${profile.id}?${process.env.REACT_APP_REF_PARAMETER}`}
               target="blank"
               buttonBackgroundColor={buttonBackgroundColor}
               buttonTextColor={buttonTextColor}

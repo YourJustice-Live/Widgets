@@ -24,7 +24,7 @@ This is a widget that displays the profile's overall reputation, a link to a spe
 <div
   class="yj_profile"
   account="0x4306D7a79265D2cb85Db0c5a55ea5F4f6F73C4B1"
-  jurisdiction="0x767160931f9d7cce40e9a91f22b223a40a3f59c3"
+  jurisdiction="0xc20d4562ff9a883872e62e89c77bc8e39e7e287d"
 ></div>
 ```
 
