@@ -85,7 +85,7 @@ function getFindAvatarNftEntitiesQuery(owners, first, skip) {
 function getFindJurisdictionEntitiesQuery(ids, first, skip) {
   let idsFilter = ids ? `id_in: ["${ids.join('","')}"]` : '';
   let filterParams = `where: {${idsFilter}}`;
-  let sortParams = `orderBy: memberAccountsCount, orderDirection: desc`;
+  let sortParams = `orderBy: membersCount, orderDirection: desc`;
   let paginationParams = `first: ${first}, skip: ${skip}`;
   return `{
     jurisdictionEntities(${filterParams}, ${sortParams}, ${paginationParams}) {
