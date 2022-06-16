@@ -1,6 +1,6 @@
 import { palette } from '../theme/palette';
 
-export function IconLogo({
+export function ImageLogo({
   width = 79,
   height = 14,
   color = palette.primary.main,

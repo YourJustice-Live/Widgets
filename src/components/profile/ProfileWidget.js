@@ -4,7 +4,8 @@ import useJurisdiction from '../../hooks/useJurisdiction';
 import useProfile from '../../hooks/useProfile';
 import { IconArrowDown } from '../../icons/IconArrowDown';
 import { IconArrowUp } from '../../icons/IconArrowUp';
-import { IconLogo } from '../../icons/IconLogo';
+import { ImageLogo } from '../../images/ImageLogo';
+import { ImageProfile } from '../../images/ImageProfile';
 import { palette } from '../../theme/palette';
 import { formatProfileFirstLastName } from '../../utils/formatters';
 
@@ -189,15 +190,21 @@ export default function ProfileWidget({ domElement }) {
             <Brand secondaryTextColor={secondaryTextColor}>
               POWERED BY
               <BrandLogoWrapper>
-                <IconLogo
-                  width="100px"
-                  height="17px"
+                <ImageLogo
+                  width="100"
+                  height="17"
                   color={secondaryTextColor || palette.text.secondary}
                 />
               </BrandLogoWrapper>
             </Brand>
             <ProfileWrapper>
-              <Image src={profile.uriImage} />
+              {profile.uriImage ? (
+                <Image src={profile.uriImage} />
+              ) : (
+                <div>
+                  <ImageProfile width="36" height="36" radius="48" />
+                </div>
+              )}
               <DetailsWrapper>
                 <NameRatingWrapper>
                   <NameLink
