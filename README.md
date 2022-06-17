@@ -16,10 +16,10 @@ This is a widget that displays the profile's overall reputation, a link to a spe
 
 ```html
 <link
-  href="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets@v0.1/dist/index.css"
+  href="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets@0.1/dist/index.css"
   rel="stylesheet"
 />
-<script src="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets@v0.1/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/YourJustice-Live/Widgets@0.1/dist/index.js"></script>
 
 <div
   class="yj_profile"
@@ -51,6 +51,10 @@ Don't forget to replace the **account** and **jurisdiction** with your own value
 
 - Runs the app in the development mode - `npm start`
 - Build widget dist - `npm run build:widget`
+
+### How to purge jsDelivr cache
+
+- Open a URL similar to this in your browser - `https://purge.jsdelivr.net/gh/YourJustice-Live/Widgets@0.1/dist/index.js`
 
 ## Community
 
